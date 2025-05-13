@@ -15,4 +15,7 @@ class OfflineAirportRepository(
     override fun getAirportByCode(code: String): Flow<Airport>
     = airportDao.getAirportByCode(code)
 
+    override fun getDestinationsFrom(departureCode: String): Flow<List<Airport>>
+    = airportDao.getDestinationsFrom(departureCode)
+
 }

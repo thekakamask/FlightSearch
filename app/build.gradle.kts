@@ -75,5 +75,7 @@ dependencies {
     //KSP for analyze and generate Kotlin code at compile time.
     //It is used by libraries that need to generate code automatically (such as Room, Hilt, Moshi...).
     ksp(libs.androidx.room.compiler)
+    // Enables modern and asynchronous key-value data persistence using Preferences DataStore.
+    implementation(libs.androidx.datastore.preferences)
 
 }

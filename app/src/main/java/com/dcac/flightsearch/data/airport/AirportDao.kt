@@ -20,4 +20,13 @@ interface AirportDao {
     //Display details of a given airport
     @Query("SELECT * FROM airport WHERE iata_code = :code LIMIT 1")
     fun getAirportByCode(code: String): Flow<Airport>
+
+    @Query("""
+    SELECT * FROM airport
+    WHERE iata_code != :departureCode
+    ORDER BY passengers DESC
+""")
+    fun getDestinationsFrom(departureCode: String): Flow<List<Airport>>
+
+
 }

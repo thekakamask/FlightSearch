@@ -4,7 +4,7 @@
 
 ## ✅ **LAST MAJOR UPDATES**
 
-- 🧱 Designed and implemented the local SQLite database using **Room**:
+- 🧱 Designed and implemented the **local SQLite database using Room**:
   - Defined `Airport` and `Favorite` entities matching the prebuilt database scheme.
   - Integrated a pre-populated Room database (`flight_search.db`) using `.createFromAsset(...)`.
   - Created `AirportDao` and `FavoriteDao` with SQL queries for search, selection, and favorite route tracking.
@@ -18,11 +18,21 @@
   - Created `AppContainer` interface for managing shared dependencies.
   - Built `AppDataContainer` to provide repository instances from the Room database.
   - Integrated everything into `FlightSearchApplication` for global access to dependencies.
+
+- 💾 Added **User Preferences DataStore** support:
+  - Defined `IUserPreferencesRepository` and implemented `UserPreferencesRepository` for persistent search query storage.
+  - Used `Preferences DataStore` to persist the latest search query (`search_query`) with `stringPreferencesKey`.
+  - Injected via `AppContainer` for access from the `ViewModel`.
+
+- 🎛️ Structured the **UI State management**:
+   - Defined `FlightUiState` to represent the complete state of the search screen, including search query, results, favorites, and loading/error state.
+   - Created `FlightUiModel` to represent enriched flight route items (departure, destination, favorite status).
       
 ## ❌ **NEXT UPDATES**
 
-- 🧩 Implemented **Dependency** injection setup:
-  - Inject the repository into the `ViewModel`.
+- 🧠 Finalize ViewModel logic:
+  - Inject repositories into the ViewModel.
+  - Implement search + favorite logic using repositories.
 
 - 📦 Create the `ViewModel` and initial `UiState`:
   - Connect search input to the database via repository.
@@ -51,8 +61,8 @@
 
    - 💾 **Preferences**:
 
-      - ❌ **NOT IMPLEMENTED** Save latest search input via Preferences DataStore.
-      - ❌ **NOT IMPLEMENTED** Restore search text and display related results at app launch.
+      - 🟩 **IN PROGRESS** Save latest search input via Preferences DataStore.
+      - 🟩 **IN PROGRESS** Restore search text and display related results at app launch.
 
    - 🎨 Modern and Fluid Interface:
 
@@ -78,8 +88,8 @@
 
    - 📦 Data Persistence:
 
-      - 🟩 **IN PROGRESS** Persist inventory data locally using Room (SQLite).
-      - 🟩 **IN PROGRESS** Automatically restore inventory after app restart.
+      - 🟩 **IN PROGRESS** Persist airports and favorites data locally using Room (SQLite).
+      - 🟩 **IN PROGRESS** Automatically restore datas after app restart.
 
    - 🧠 Architecture & Code Structure:
 

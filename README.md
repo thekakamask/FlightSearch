@@ -4,23 +4,24 @@
 
 ## ✅ **LAST MAJOR UPDATES**
 
-   - First commit with Theme, Font and colors.
-   - Logo App implemented.
-   - README implemented.
+- 🧱 Designed and implemented the local SQLite database using **Room**:
+  - Defined `Airport` and `Favorite` entities matching the prebuilt database scheme.
+  - Integrated a pre-populated Room database (`flight_search.db`) using `.createFromAsset(...)`.
+  - Created `AirportDao` and `FavoriteDao` with SQL queries for search, selection, and favorite route tracking.
+
+- 🧠 Built the **Repository** layer:
+  - Defined `AirportRepository` and `FavoriteRepository` interfaces.
+  - Implemented `OfflineAirportRepository` and `OfflineFavoriteRepository` classes using Room DAOs.
+  - Exposed database results as `Flow<T>` for reactive and lifecycle-aware UI updates.
+
+- 🧩 Implemented **Dependency** injection setup:
+  - Created `AppContainer` interface for managing shared dependencies.
+  - Built `AppDataContainer` to provide repository instances from the Room database.
+  - Integrated everything into `FlightSearchApplication` for global access to dependencies.
       
 ## ❌ **NEXT UPDATES**
 
-- 🧱 Design and implement the local SQLite database with **Room**:
-   - Define `AirportEntity` and `RouteEntity` models.
-   - Populate a prebuilt Room database with airports and routes.
-   - Set up the `FlightDao` with SQL queries for airport search and destination lookups.
-
-- 🧠 Build the repository layer:
-  - Create `FlightRepository` to encapsulate data access.
-  - Expose results as `Flow` for reactive UI updates.
-
-- 🏗 Set up dependency injection for the repository and database:
-  - Implement a simple `AppContainer` or use **Hilt** (to define).
+- 🧩 Implemented **Dependency** injection setup:
   - Inject the repository into the `ViewModel`.
 
 - 📦 Create the `ViewModel` and initial `UiState`:
@@ -71,19 +72,19 @@
 
    - 🔄 Real-time status management:
 
-      - ❌ **NOT IMPLEMENTED** Use of StateFlow for UI state handling.
+      - 🟩 **IN PROGRESS** Use of StateFlow for UI state handling.
       - ❌ **NOT IMPLEMENTED** ViewModel for lifecycle-aware logic.
-      - ❌ **NOT IMPLEMENTED** Coroutines for async data operations.
+      - 🟩 **IN PROGRESS** Coroutines for async data operations.
 
    - 📦 Data Persistence:
 
-      - ❌ **NOT IMPLEMENTED** Persist inventory data locally using Room (SQLite).
-      - ❌ **NOT IMPLEMENTED** Automatically restore inventory after app restart.
+      - 🟩 **IN PROGRESS** Persist inventory data locally using Room (SQLite).
+      - 🟩 **IN PROGRESS** Automatically restore inventory after app restart.
 
    - 🧠 Architecture & Code Structure:
 
-      - ❌ **NOT IMPLEMENTED** MVVM architecture pattern.
-      - ❌ **NOT IMPLEMENTED** Clean separation between UI and business logic.
+      - 🟩 **IN PROGRESS** MVVM architecture pattern.
+      - 🟩 **IN PROGRESS** Clean separation between UI and business logic.
 
    - 🚀 Performance and responsiveness:
    

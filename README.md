@@ -27,16 +27,13 @@
 - 🎛️ Structured the **UI State management**:
    - Defined `FlightUiState` to represent the complete state of the search screen, including search query, results, favorites, and loading/error state.
    - Created `FlightUiModel` to represent enriched flight route items (departure, destination, favorite status).
+
+- 📦 Create the `ViewModel` and `UiState`:
+   - Inject repositories into the ViewModel.
+   - Implement search + favorite + preferences logic using repositories.
+   - Reflect database results in a composable `StateFlow`.
       
 ## ❌ **NEXT UPDATES**
-
-- 🧠 Finalize ViewModel logic:
-  - Inject repositories into the ViewModel.
-  - Implement search + favorite logic using repositories.
-
-- 📦 Create the `ViewModel` and initial `UiState`:
-  - Connect search input to the database via repository.
-  - Reflect database results in a composable `StateFlow`.
 
 - 🔍 Implement the search screen UI:
   - Add `TextField` with auto-complete support.
@@ -50,14 +47,14 @@
 
    - 🔎 **Search Flights** :
 
-      - ❌ **NOT IMPLEMENTED** Suggest airports using auto-complete as user types.
-      - ❌ **NOT IMPLEMENTED** Show destination list from selected airport.
-      - ❌ **NOT IMPLEMENTED** Display airport name + IATA code from DB.
+      - 🟩 **IN PROGRESS** Suggest airports using auto-complete as user types.
+      - 🟩 **IN PROGRESS** Show destination list from selected airport.
+      - 🟩 **IN PROGRESS** Display airport name + IATA code from DB.
    
    - ❤️ **Favorites Management** :
 
-      - ❌ **NOT IMPLEMENTED** Save and delete favorite flight routes.
-      - ❌ **NOT IMPLEMENTED** Show favorites when no search is typed.
+      - 🟩 **IN PROGRESS** Save and delete favorite flight routes.
+      - 🟩 **IN PROGRESS** Show favorites when no search is typed.
 
    - 💾 **Preferences**:
 
@@ -82,13 +79,13 @@
 
    - 🔄 Real-time status management:
 
-      - 🟩 **IN PROGRESS** Use of StateFlow for UI state handling.
-      - ❌ **NOT IMPLEMENTED** ViewModel for lifecycle-aware logic.
-      - 🟩 **IN PROGRESS** Coroutines for async data operations.
+      - ✅ **DONE** Use of StateFlow for UI state handling.
+      - ✅ **DONE** ViewModel for lifecycle-aware logic.
+      - ✅ **DONE** Coroutines for async data operations.
 
    - 📦 Data Persistence:
 
-      - 🟩 **IN PROGRESS** Persist airports and favorites data locally using Room (SQLite).
+      - ✅ **DONE** Persist airports and favorites data locally using Room (SQLite).
       - 🟩 **IN PROGRESS** Automatically restore datas after app restart.
 
    - 🧠 Architecture & Code Structure:

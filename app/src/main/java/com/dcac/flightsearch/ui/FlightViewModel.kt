@@ -1,7 +1,11 @@
 package com.dcac.flightsearch.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.dcac.flightsearch.FlightSearchApplication
 import com.dcac.flightsearch.data.airport.Airport
 import com.dcac.flightsearch.data.airport.AirportRepository
 import com.dcac.flightsearch.data.favorite.Favorite
@@ -23,7 +27,7 @@ class FlightViewModel(
     private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel(), IFlightViewModel {
 
-    private val _uiState = MutableStateFlow<FlightUiState>(FlightUiState.Loading)
+    private val _uiState = MutableStateFlow<FlightUiState>(FlightUiState.Success())
     override val uiState: StateFlow<FlightUiState> = _uiState.asStateFlow()
 
     init{
@@ -71,18 +75,30 @@ class FlightViewModel(
 
     // Triggered when user types in the search field
     override fun displayAirportsByQuery(query: String) {
+        // Update the query directly
+        _uiState.update { current ->
+            if (current is FlightUiState.Success) {
+                current.copy(searchQuery = query)
+            } else current
+        }
+
         viewModelScope.launch {
-            // Query the database (Room) for airport name or code
-            airportRepository.searchAirports(query).collect { results ->
-                _uiState.update { currentState ->
-                    // Update suggestions + current query
-                    if (currentState is FlightUiState.Success) {
-                        currentState.copy(
-                            searchQuery = query,
-                            searchSuggestions = results
-                        )
-                    } else currentState
+            try {
+                airportRepository.searchAirports(query).collect { results ->
+                    _uiState.update { current ->
+                        if (current is FlightUiState.Success) {
+                            current.copy(
+                                searchSuggestions = results,
+                                showSuggestions = true
+                            )
+                        } else current
+                    }
                 }
+            } catch (e: Exception) {
+                _uiState.value = FlightUiState.Error(
+                    message = "Search failed: ${e.localizedMessage ?: "Unknown error"}",
+                    searchQuery = query
+                )
             }
         }
     }
@@ -111,7 +127,8 @@ class FlightViewModel(
                         if (currentState is FlightUiState.Success) {
                             currentState.copy(
                                 selectedDeparture = departure,
-                                destinations = flights
+                                destinations = flights,
+                                showSuggestions = false,
                             )
                         } else currentState
                     }
@@ -235,6 +252,18 @@ class FlightViewModel(
                         searchQuery = query,
                     )
                 } else currentState
+            }
+        }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as FlightSearchApplication)
+                val airportRepository = application.container.airportRepository
+                val favoriteRepository = application.container.favoriteRepository
+                val userPreferencesRepository = application.container.preferencesRepository
+                FlightViewModel(airportRepository, favoriteRepository, userPreferencesRepository)
             }
         }
     }

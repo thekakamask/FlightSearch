@@ -1,8 +1,10 @@
 package com.dcac.flightsearch.data.airport
 
+import androidx.room.Dao
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface AirportDao {
 
     //Preload or display all airports

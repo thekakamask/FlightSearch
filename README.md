@@ -4,52 +4,36 @@
 
 ## ✅ **LAST MAJOR UPDATES**
 
-- 🧱 Designed and implemented the **local SQLite database using Room**:
-  - Defined `Airport` and `Favorite` entities matching the prebuilt database scheme.
-  - Integrated a pre-populated Room database (`flight_search.db`) using `.createFromAsset(...)`.
-  - Created `AirportDao` and `FavoriteDao` with SQL queries for search, selection, and favorite route tracking.
+- 🔍 Search screen UI implemented :
+  - Added a TextField for airport search input.
+  - Displayed filtered airport suggestions from Room in real-time.
 
-- 🧠 Built the **Repository** layer:
-  - Defined `AirportRepository` and `FavoriteRepository` interfaces.
-  - Implemented `OfflineAirportRepository` and `OfflineFavoriteRepository` classes using Room DAOs.
-  - Exposed database results as `Flow<T>` for reactive and lifecycle-aware UI updates.
+- ✈️ Flight routes feature added:
+   - Displayed a list of available routes after selecting a departure airport.
+   - Flight route data is fetched from Room.
 
-- 🧩 Implemented **Dependency** injection setup:
-  - Created `AppContainer` interface for managing shared dependencies.
-  - Built `AppDataContainer` to provide repository instances from the Room database.
-  - Integrated everything into `FlightSearchApplication` for global access to dependencies.
-
-- 💾 Added **User Preferences DataStore** support:
-  - Defined `IUserPreferencesRepository` and implemented `UserPreferencesRepository` for persistent search query storage.
-  - Used `Preferences DataStore` to persist the latest search query (`search_query`) with `stringPreferencesKey`.
-  - Injected via `AppContainer` for access from the `ViewModel`.
-
-- 🎛️ Structured the **UI State management**:
-   - Defined `FlightUiState` to represent the complete state of the search screen, including search query, results, favorites, and loading/error state.
-   - Created `FlightUiModel` to represent enriched flight route items (departure, destination, favorite status).
-
-- 📦 Create the `ViewModel` and `UiState`:
-   - Inject repositories into the ViewModel.
-   - Implement search + favorite + preferences logic using repositories.
-   - Reflect database results in a composable `StateFlow`.
+- 💾 Search query persistence via DataStore:
+   - The search query is saved on every input change.
+   - The last saved query is automatically restored when reopening the app.
       
 ## ❌ **NEXT UPDATES**
-
-- 🔍 Implement the search screen UI:
-  - Add `TextField` with auto-complete support.
-  - Display real-time filtered results from Room.
 
 - ❤️ Add favorites logic (DataStore + Room):
   - Mark routes as favorites and persist selection.
   - Display favorite routes when no search is active.
 
+- 🎨 UI improvements:
+   - Polish visuals of airport suggestions and flight cards.
+   - Improve layout spacing, alignment, and typography for better readability.
+   - Add transition/animation effects where relevant.
+
 ## 📋 **Features**
 
    - 🔎 **Search Flights** :
 
-      - 🟩 **IN PROGRESS** Suggest airports using auto-complete as user types.
-      - 🟩 **IN PROGRESS** Show destination list from selected airport.
-      - 🟩 **IN PROGRESS** Display airport name + IATA code from DB.
+      - ✅ **DONE** Suggest airports with search input.
+      - ✅ **DONE** Show destination list from selected airport.
+      - ✅ **DONE** Display airport name + IATA code from DB.
    
    - ❤️ **Favorites Management** :
 
@@ -58,17 +42,17 @@
 
    - 💾 **Preferences**:
 
-      - 🟩 **IN PROGRESS** Save latest search input via Preferences DataStore.
-      - 🟩 **IN PROGRESS** Restore search text and display related results at app launch.
+      - ✅ **DONE** Save latest search input via Preferences DataStore.
+      - ✅ **DONE** Restore search text and display related results at app launch.
 
    - 🎨 Modern and Fluid Interface:
 
-      - ❌ **NOT IMPLEMENTED** Follows Material Design 3 guidelines.
-      - ❌ **NOT IMPLEMENTED** Smooth transitions with Navigation Component.
-      - ❌ **NOT IMPLEMENTED** Responsive layout with adaptive UI.
+      - 🟩 **IN PROGRESS** Follows Material Design 3 guidelines.
+      - 🟩 **IN PROGRESS** Smooth transitions with Navigation Component.
+      - 🟩 **IN PROGRESS** Responsive layout with adaptive UI.
 
       - TopBar:
-         - ❌ **NOT IMPLEMENTED** Display application title and possible future actions.
+         - ✅ **DONE** Display application title and possible future actions.
 
       - Light/Dark Mode:
          - ✅ **DONE** Supports **light/dark mode**.
@@ -95,7 +79,7 @@
 
    - 🚀 Performance and responsiveness:
    
-      - ❌ **NOT IMPLEMENTED** Optimize UI scrolling and animations.
+      - 🟩 **IN PROGRESS** Optimize UI scrolling and animations.
       
    - 🛠 Error Handling & User Feedback:
 
@@ -116,13 +100,40 @@
    - **DataStore**: Modern replacement for SharedPreferences.
    
 ## 🚀 **How to Use**
-   
-   ❌ **THIS SECTION IS NOT IMPLEMENTED YET**
+1. **Launch the app**:
+   - Download the code and launch the app on an Android device or emulator. (Bad performance because in Debug Build Variant)
+2. **Search for airports:**:
+   - Start typing an airport name or IATA code in the search bar on the Home Screen.
+   - Suggestions will appear in real-time based on your input using Room local database.
+3. **Select a departure airport**:
+   - Tap a suggestion to select it as your departure airport.
+   - The app displays a list of all destinations available from that airport.
+4. ** Explore flight routes**:
+   - Scroll vertically through the list of available flight routes.
+   - Each route shows both departure and destination airport details.
+5. **Return and search again**:
+   - Last query was saved and display at re openning.
+   - You can type new keywords anytime to search again.
+   - The UI updates instantly with relevant airport and flight results.
 
 
 ## 📸 **Screenshots**
 
-   ❌ **THIS SECTION IS NOT IMPLEMENTED YET**
+- **Initial screen**:
+
+   ![Initial screen](screenshots/initial_screen.png)
+   
+- **Suggestions screen**:
+
+   ![Suggestions screen](screenshots/suggestions_screen.png)
+
+- **Flight routes screen**:
+
+   ![Flight routes screen](screenshots/flight_routes_screen.png)
+
+- **Suggestions flight routes screen**:
+
+   ![Suggestions flight routes screen](screenshots/suggestions_flight_routes_screen.png)
 
 
 
